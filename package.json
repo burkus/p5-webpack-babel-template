@@ -1,6 +1,10 @@
 {
-  "name": "Andrew Burkus da8urk@gmail.com",
+  "name": "p5 babel webpack template",
   "version": "1.0.0",
+    "author": "Andrew Burkus andrew@burkus.xyz",
+    "scripts": {
+        "build": "webpack"
+    },
   "dependencies": {
     "p5": "^0.5.3"
   },
