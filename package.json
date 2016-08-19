@@ -1,7 +1,12 @@
 {
-  "name": "p5 babel webpack template",
+  "name": "p5-webpack-babel-template",
   "version": "1.0.0",
     "author": "Andrew Burkus andrew@burkus.xyz",
+    "description": "pretty much the title/name",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Andrew-Burkus/p5-webpack-babel-template"
+    },
     "scripts": {
         "build": "webpack"
     },
