@@ -57,7 +57,7 @@
 
 	function main(window) {
 	    window.setup = drawing.setup;
-	    window.draw = drawing.draw;
+	    window.draw = drawing.drawx;
 	}
 
 /***/ },
