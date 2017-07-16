@@ -1,11 +1,10 @@
-var ints = [1, 2, 3, 4, 5];
-ints.map(i => document.write(i + " "));
-
-var drawing = require('./src/draw.js');
+require('p5');
+import app from './src/config.js';
+import events from './src/events.js';
 
 main(window);
 
 function main(window) {
-    window.setup = drawing.setup;
-    window.draw  = drawing.draw;
+  Object.assign(window, app);
+  Object.assign(window, events);
 }

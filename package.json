@@ -1,6 +1,6 @@
 {
   "name": "p5-webpack-babel-template",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Andrew Burkus andrew@burkus.xyz",
   "description": "pretty much the title/name",
   "repository": {
@@ -8,7 +8,8 @@
     "url": "https://github.com/Andrew-Burkus/p5-webpack-babel-template"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --progress --colors",
+    "start": "webpack-dev-server --progress --colors"
   },
   "dependencies": {
     "p5": "^0.5.3"
@@ -18,6 +19,9 @@
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.13.2",
-    "webpack": "^1.13.2"
+    "eslint": "^4.2.0",
+    "eslint-loader": "^1.9.0",
+    "webpack": "^2.0.0",
+    "webpack-dev-server": "^2.5.1"
   }
 }

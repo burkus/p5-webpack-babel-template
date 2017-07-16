@@ -47,9 +47,9 @@ setup: function() {
     stroke(0);
 },
 ```
-Setup is called once, before draw is called. If you want generate only one frame, you can run all your code inside of setup and leave draw empty.
+Setup is called once, before draw is called. If you want to generate only one frame, you can run all your code inside of setup and leave draw empty.
 
-`createCanvas` adds a `<canvas>` element to the body of the webpage. That element is what allows us to draw things and create animations and what not. p5 is build on top of the browser APIs for the canvas, giving us abstraction and prettier code.
+`createCanvas` adds a `<canvas>` element to the body of the webpage. That element is what allows us to draw things and create animations and what not. p5 is built on top of the browser APIs for the canvas, giving us abstraction and prettier code.
 
 `stroke` sets the color of the lines that shapes are drawn in. It can take up to 3 values, RGB, or just one value for gray-scale.
 
