@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "webpack --progress --colors",
-    "start": "webpack-dev-server --progress --colors"
+    "start": "webpack-dev-server --progress --colors",
+    "docs": "documentation build src/** -f md -w -o docs/api.md"
   },
   "dependencies": {
     "p5": "^0.5.3"

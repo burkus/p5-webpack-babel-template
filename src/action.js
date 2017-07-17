@@ -1,16 +1,21 @@
-// Action class
+/**
+  * A wrapper class for lambda expressions passed to Global.actions
+  * @class Action
+  * @param {Function} action The expression to be invoked
+  * @param {GlobalObject} handler A reference to Global for convenience
+*/
 export default class Action {
-  /*
-    action is the lambda expression to be executed - required
-    action takes as an argument a reference to Global
-    handler is a reference to the Global in charge - required
-  */
   constructor(action, handler) {
     this.expression = action;
     this.onState = null;
     this.handler = handler;
   }
-
+  /**
+    * adds a necessary condition for the action to execute
+    * @name Action.forState
+    * @param {Function} condExp conditional expression
+    * @returns {GlobalObject} the handler of the action.
+  */
   forState(condExp) {
     if(!condExp) {
       return this.handler;
@@ -21,6 +26,10 @@ export default class Action {
     }
   }
 
+  /**
+    * Executes the expression
+    * @name Action.exe
+  */
   exe() {
     if(this.onState === null) {
       this.expression(this.handler);
