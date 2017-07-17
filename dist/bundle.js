@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0edcdd54fa9e369d910f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9a5dd4c134e040a59f68"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -706,141 +706,92 @@
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(5)(__webpack_require__.s = 5);
+/******/ 	return hotCreateRequire(6)(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__action_js__ = __webpack_require__(8);
+// a global namespace for all your stuff
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // a global namespace for all your stuff
-
-
-var _action = __webpack_require__(6);
-
-var _action2 = _interopRequireDefault(_action);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var GlobalObject = function () {
-  function GlobalObject() {
-    _classCallCheck(this, GlobalObject);
-
+/**
+  * helps you in keeping track of state between setup, draw, and events.
+  * @class GlobalObject
+*/
+class GlobalObject {
+  constructor() {
     this.actions = [];
   }
+  /**
+    * Creates a new action for Global to execute
+    * @name Global.addAction
+    * @param {Function} exp the expression the user wants executed after the draw loop.
+    * @returns {Action} the new Action just added to the Global.actions list
+  */
+  addAction(exp) {
+    const action = new __WEBPACK_IMPORTED_MODULE_0__action_js__["a" /* default */](exp, this);
+    this.actions.push(action);
+    return action;
+  }
 
-  _createClass(GlobalObject, [{
-    key: 'addAction',
-    value: function addAction(exp) {
-      var action = new _action2.default(exp, this);
-      this.actions.push(action);
-      return action;
-    }
-  }, {
-    key: 'exeActions',
-    value: function exeActions() {
-      this.actions.map(function (a) {
-        return a.exe();
-      });
-      this.clearActions();
-    }
-  }, {
-    key: 'clearActions',
-    value: function clearActions() {
-      this.actions.length = 0;
-    }
-  }]);
+  /**
+    * executes all actions in the Global.actions list
+    * and then clears the list
+    * @name Global.exeActions
+  */
+  exeActions() {
+    this.actions.map((a) => a.exe());
+    this.clearActions();
+  }
 
-  return GlobalObject;
-}();
+  clearActions() {
+    this.actions.length = 0;
+  }
+}
 
-var Global = new GlobalObject();
+const Global = new GlobalObject();
 
-exports.default = Global;
+/* harmony default export */ __webpack_exports__["a"] = (Global);
+
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createDraw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createSetup; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_js__ = __webpack_require__(0);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _setup = __webpack_require__(8);
-
-var _draw = __webpack_require__(7);
-
-var _global = __webpack_require__(0);
-
-var _global2 = _interopRequireDefault(_global);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
-  Any key -> value attached to app will automatically
-  be attached to the window namespace.
-  Events are attached separately in the events.js file.
-  Most projects don't need to modify this file.
+/**
+  * This function creates a new setup function for p5.
+  * @name createSetup
+  * @param {Function} lambda is the setup function written by the user
+  * @param {Object} config the canvas configuration defined by the user
+  * @returns {Function} lambda curried with the config
 */
-var app = {}; // Setup event, draw, and setup functions
+const createSetup = (lambda, config) => (() => lambda(config));
+/**
+  * This function creates a new draw function for p5
+  * @name createDraw
+  * @param {Function} lambda is the draw function written by the user
+  * @returns {Function} new function for p5 to use
+*/
+const createDraw = (lambda) => {
+  return () => {
+    lambda();
+    __WEBPACK_IMPORTED_MODULE_0__global_js__["a" /* default */].exeActions();
+  }
+};
 
-app.setup = _setup.setup;
-app.draw = _draw.draw;
-app.Global = _global2.default;
 
-exports.default = app;
+
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _global = __webpack_require__(0);
-
-var _global2 = _interopRequireDefault(_global);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
-  Attaching events to the events object will automatically
-  attach them to the window namespace, where p5 can call them
-  when needed.
-  Use Global to access data from other files, like setup.
-*/
-var events = {}; // all events
-
-
-events.mousePressed = function () {
-  var x = mouseX;
-  var y = mouseY;
-  console.log('The mouse has been pressed');
-  console.log('X @ ' + x);
-  console.log('Y @ ' + y);
-  console.log(_global2.default.message);
-};
-
-exports.default = events;
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var require;var require;/*! p5.js v0.5.11 June 01, 2017 */
@@ -35950,200 +35901,105 @@ module.exports = {
 };
 },{}]},{},[33])(33)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setup_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__draw_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__global_js__ = __webpack_require__(0);
+// Setup event, draw, and setup functions
+
+
+
+/*
+  Any key -> value attached to app will automatically
+  be attached to the window namespace.
+  Events are attached separately in the events.js file.
+  Most projects don't need to modify this file.
+*/
+const app = {};
+app.setup = __WEBPACK_IMPORTED_MODULE_0__setup_js__["a" /* setup */];
+app.draw  = __WEBPACK_IMPORTED_MODULE_1__draw_js__["a" /* draw */];
+app.Global = __WEBPACK_IMPORTED_MODULE_2__global_js__["a" /* default */];
+
+/* harmony default export */ __webpack_exports__["a"] = (app);
+
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_js__ = __webpack_require__(0);
 
+const events = {};
+/*
+  Attaching events to the events object will automatically
+  attach them to the window namespace, where p5 can call them
+  when needed.
+  Use Global to access data from other files, like setup.
+*/
+events.mousePressed = () => {
+  let x = window.mouseX;
+  let y = window.mouseY;
+  console.log('The mouse has been pressed');
+  console.log(`X @ ${x}`);
+  console.log(`Y @ ${y}`);
+  console.log(__WEBPACK_IMPORTED_MODULE_0__global_js__["a" /* default */].message);
+}
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-// Use to configure dimensions of project
+events.windowResized = () => {
+  let w = window.windowWidth;
+  let h = window.windowHeight;
+  window.resizeCanvas(w, h);
+}
 
-var config = {
-  x: 0,
-  y: 0,
-  width: 500,
-  height: 500
-};
+/* harmony default export */ __webpack_exports__["a"] = (events);
 
-exports.default = config;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// Use to configure dimensions of project
+
+const config = {
+  x: 0,
+  y: 0,
+  width: 1000,
+  height: 1000
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (config);
 
 
-var _config = __webpack_require__(1);
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var _config2 = _interopRequireDefault(_config);
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_config_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_events_js__ = __webpack_require__(4);
+__webpack_require__(2);
 
-var _events = __webpack_require__(2);
 
-var _events2 = _interopRequireDefault(_events);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-__webpack_require__(3);
 
 main(window);
 
 function main(window) {
-  Object.assign(window, _config2.default);
-  Object.assign(window, _events2.default);
+  Object.assign(window, __WEBPACK_IMPORTED_MODULE_0__src_config_js__["a" /* default */]);
+  Object.assign(window, __WEBPACK_IMPORTED_MODULE_1__src_events_js__["a" /* default */]);
 }
 
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// Action class
-var Action = function () {
-  /*
-    action is the lambda expression to be executed - required
-    action takes as an argument a reference to Global
-    handler is a reference to the Global in charge - required
-  */
-  function Action(action, handler) {
-    _classCallCheck(this, Action);
-
-    this.expression = action;
-    this.onState = null;
-    this.handler = handler;
-  }
-
-  _createClass(Action, [{
-    key: "forState",
-    value: function forState(condExp) {
-      if (!condExp) return handler;else {
-        this.onState = condExp;
-        return handler;
-      }
-    }
-  }, {
-    key: "exe",
-    value: function exe() {
-      if (this.onState === null) this.expression(this.handler);else if (this.onState()) this.expression(this.handler);
-    }
-  }]);
-
-  return Action;
-}();
-
-exports.default = Action;
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createDraw = exports.draw = undefined;
-
-var _global = __webpack_require__(0);
-
-var _global2 = _interopRequireDefault(_global);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
-  createDraw allows updating of the
-*/
-var createDraw = function createDraw(lambda) {
-  return function () {
-    lambda();
-    _global2.default.exeActions();
-  };
-};
-
-_global2.default.addAction(function () {
-  return console.log('First frame completed');
-});
-
-var draw = createDraw(function () {
-  background(145);
-  ellipse(mouseX, mouseY, 100, 100);
-});
-
-exports.draw = draw;
-exports.createDraw = createDraw;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.setup = exports.createSetup = undefined;
-
-var _canvasConfig = __webpack_require__(4);
-
-var _canvasConfig2 = _interopRequireDefault(_canvasConfig);
-
-var _global = __webpack_require__(0);
-
-var _global2 = _interopRequireDefault(_global);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
-  lambda is the setup function written by the user
-  lambda contains functions like createCanvas and smooth
-  createSetup returns a setup function for p5 to use
-*/
-// setup
-var createSetup = function createSetup(lambda, config) {
-  return function () {
-    return lambda(config);
-  };
-};
-
-/*
-  Create a new setup function. We DO NOT
-  want to use the closure property on it.
-  This will allow us to dynamically update
-  the setup function from the client.
-*/
-var setup = createSetup(function (_ref) {
-  var width = _ref.width,
-      height = _ref.height;
-
-  createCanvas(width, height);
-  noFill();
-  stroke(0);
-  _global2.default.message = "Hi there, this string exists in Global";
-}, _canvasConfig2.default);
-
-exports.createSetup = createSetup;
-exports.setup = setup;
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports) {
 
 var g;
@@ -36167,6 +36023,100 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+  * A wrapper class for lambda expressions passed to Global.actions
+  * @class Action
+  * @param {Function} action The expression to be invoked
+  * @param {GlobalObject} handler A reference to Global for convenience
+*/
+class Action {
+  constructor(action, handler) {
+    this.expression = action;
+    this.onState = null;
+    this.handler = handler;
+  }
+  /**
+    * adds a necessary condition for the action to execute
+    * @name Action.forState
+    * @param {Function} condExp conditional expression
+    * @returns {GlobalObject} the handler of the action.
+  */
+  forState(condExp) {
+    if(!condExp) {
+      return this.handler;
+    }
+    else {
+      this.onState = condExp;
+      return this.handler;
+    }
+  }
+
+  /**
+    * Executes the expression
+    * @name Action.exe
+  */
+  exe() {
+    if(this.onState === null) {
+      this.expression(this.handler);
+    }
+    else if(this.onState(this.handler)) {
+      this.expression(this.handler);
+    }
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Action;
+
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return draw; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_js__ = __webpack_require__(1);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__global_js__["a" /* default */].addAction(() => console.log('First frame completed'));
+
+const draw = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_js__["a" /* createDraw */])(() => {
+  window.background(145);
+  window.ellipse(window.mouseX, window.mouseY, 100, 100);
+});
+
+
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return setup; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvas_config_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__global_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_js__ = __webpack_require__(1);
+
+
+
+
+const setup = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils_js__["b" /* createSetup */])(({ width, height }) => {
+  __WEBPACK_IMPORTED_MODULE_1__global_js__["a" /* default */].canvas = window.createCanvas(width, height);
+  window.noFill();
+  window.stroke(0);
+  __WEBPACK_IMPORTED_MODULE_1__global_js__["a" /* default */].message = "Hi there, this string exists in Global";
+}, __WEBPACK_IMPORTED_MODULE_0__canvas_config_js__["a" /* default */]);
+
+
 
 
 /***/ })
