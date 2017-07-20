@@ -4,7 +4,8 @@ module.exports = {
     entry: __dirname + '/main.js',
     output: {
         path: __dirname + '/dist/',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        sourceMapFilename: "bundle.map.js"
     },
     module: {
         loaders: [
@@ -28,5 +29,6 @@ module.exports = {
       hot: true,
       contentBase: './dist',
       port: port
-    }
+    },
+    devtool: 'source-map'
 }

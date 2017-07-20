@@ -1,5 +1,6 @@
 // a global namespace for all your stuff
 import Action from './action.js';
+import types from './type.js';
 /**
   * helps you in keeping track of state between setup, draw, and events.
   * @class GlobalObject
@@ -7,6 +8,8 @@ import Action from './action.js';
 class GlobalObject {
   constructor() {
     this.actions = [];
+    this.types = types;
+    this.state = {};
   }
   /**
     * Creates a new action for Global to execute
