@@ -8,6 +8,9 @@
 -   [GlobalObject](#globalobject)
 -   [Global.addAction](#globaladdaction)
 -   [Global.exeActions](#globalexeactions)
+-   [Types](#types)
+-   [Types.add](#typesadd)
+-   [Types.new](#typesnew)
 -   [createSetup](#createsetup)
 -   [createDraw](#createdraw)
 
@@ -52,6 +55,29 @@ Returns **[Action](#action)** the new Action just added to the Global.actions li
 
 executes all actions in the Global.actions list
 and then clears the list
+
+## Types
+
+Types is a singleton which is stored under Global that
+aids in creating and managing simple types for your sketches.
+
+## Types.add
+
+Creates a new 'type' with the given name and Object Literal
+
+**Parameters**
+
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the type
+-   `struct` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** the Object Literal to be used as a blueprint
+
+## Types.new
+
+Creates a new object based upon the blueprint you previously created
+
+**Parameters**
+
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** the name of the 'type' you want to create
+-   `rest` **mix** a spread of the attributes within blueprint of `name`
 
 ## createSetup
 

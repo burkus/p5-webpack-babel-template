@@ -15,5 +15,11 @@
 
 3. npm start | start dev server on port 8080
 
+## Getting Started
+1. git clone https://github.com/Andrew-Burkus/p5-webpack-babel-template.git <your project name>
+2. cd <your project name> && npm install
+3. npm start
+4. open up your editor on the src/ directory and start editing.
+
 ## Links
 [The new JavaScript](https://babeljs.io/docs/learn-es2015/)

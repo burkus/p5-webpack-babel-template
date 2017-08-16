@@ -1,14 +1,19 @@
-
-function TypeError(message) {
-  this.name = "TypeError";
-  this.message = message;
-}
-
+/**
+  * Types is a singleton which is stored under Global that
+  * aids in creating and managing simple types for your sketches.
+  * @class Types
+*/
 class Types {
   constructor() {
     this.models = {};
   }
 
+/**
+  * Creates a new 'type' with the given name and Object Literal
+  * @name Types.add
+  * @param {string} name the name of the type
+  * @param {Object} struct the Object Literal to be used as a blueprint
+*/
   add(name, struct) {
     if(typeof struct === 'object') {
       if(name in this.models) {
@@ -31,7 +36,12 @@ class Types {
       );
     }
   }
-
+/**
+  * Creates a new object based upon the blueprint you previously created
+  * @name Types.new
+  * @param {string} name the name of the 'type' you want to create
+  * @param {mix} rest a spread of the attributes within blueprint of `name`
+*/
   new(name, ...rest) {
     if(!name) {
       throw `Function ${this.new} expected a string but found ${typeof name}`;

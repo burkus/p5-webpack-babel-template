@@ -4,7 +4,6 @@ const events = {};
   Attaching events to the events object will automatically
   attach them to the window namespace, where p5 can call them
   when needed.
-  Use Global to access data from other files, like setup.
 */
 events.mousePressed = () => {
   let x = window.mouseX;
